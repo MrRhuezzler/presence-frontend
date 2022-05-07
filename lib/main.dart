@@ -1,3 +1,4 @@
+import 'package:codekaine/screens/login_page.dart';
 import 'package:codekaine/screens/student/student_page.dart';
 import 'package:codekaine/screens/teacher/teacher_page.dart';
 import 'package:device_preview/device_preview.dart';
@@ -6,13 +7,13 @@ import 'package:flutter/material.dart';
 
 void main() {
   Paint.enableDithering = true;
-  runApp(
+  /*runApp(
     DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => MyApp(), // Wrap your app
     ),
-  );
-  // runApp(MyApp());
+  );*/
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,10 +26,11 @@ class MyApp extends StatelessWidget {
         builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         theme:ThemeData(
-          // fontFamily: 'Roboto'
+          fontFamily: 'Roboto'
         ),
         // home: TeacherPage()
-        home:StudentPage()
+        // home:StudentPage()
+        home:LoginPage(),
       );
   }
 }

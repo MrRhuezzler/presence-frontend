@@ -25,6 +25,7 @@ class CommonLayout extends StatelessWidget {
         //  begin: Alignment.topLeft, end: Alignment.centerRight)),
         child: SafeArea(
             child: Scaffold(
+              resizeToAvoidBottomInset: false,
                 backgroundColor: Colors.transparent,
                 body: child)));
   }

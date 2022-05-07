@@ -49,7 +49,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
 
     void startTimer() {
       setState(() {
-        int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 10;
+        int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
         controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
       });
     }
