@@ -23,10 +23,7 @@ class _StudentCardState extends State<StudentCard> {
     double height = MediaQuery.of(context).size.height;
     return InkWell(
       onTap:(){
-        setState(() {
-          widget.student.present=!widget.student.present;
-        });
-        
+        widget.onTap();
       },
       child: Container(
         height:height*0.1,

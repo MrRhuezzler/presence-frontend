@@ -9,26 +9,45 @@ import '../models/StudentAttendance.dart';
 
 class AttendanceReportPage extends StatefulWidget {
   Course course;
-  List<StudentAttendance>? attendance;
-  AttendanceReportPage({required this.course,required this.attendance});
+  List<StudentAttendance> attendance;
+  AttendanceReportPage({required this.course, required this.attendance});
 
   @override
-  State<AttendanceReportPage> createState() => _AttendanceReportPageState();
+  State<AttendanceReportPage> createState() =>
+      _AttendanceReportPageState(attendance: attendance);
 }
 
 class _AttendanceReportPageState extends State<AttendanceReportPage> {
+  List<StudentAttendance>? attendance;
+  
+  _AttendanceReportPageState({required this.attendance});
+
+  @override
+  initState() {
+    
+    
+    
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List <StudentAttendance> orderedAttendance=[...widget.attendance!];
-    orderedAttendance.sort((a,b){
-      if (b.present)
-        return -1;
-      return 1;
-    });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    late List<StudentAttendance> orderedAttendance;
+  late int presentCount;
+  late int absentCount;
+    orderedAttendance = [...attendance!];
+    orderedAttendance.sort((a, b) {
+      if (b.present) return -1;
+      return 1;
+    });
 
+    presentCount = attendance!
+        .map((element) => element.present == true ? 1 : 0)
+        .reduce((value, element) => value + element);
+    absentCount = attendance!.length - presentCount;
+    
     return CommonLayout(
         child: Container(
             padding: EdgeInsets.symmetric(
@@ -73,7 +92,8 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                 ),
                 Container(
                   height: height * 0.1,
-                  padding: EdgeInsets.symmetric(horizontal: width*0.05,vertical: height*0.005),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.05, vertical: height * 0.005),
                   width: width,
                   decoration: BoxDecoration(
                       // color:primaryGreen,
@@ -91,9 +111,9 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                         children: [
                           TextContainer(
                             text: 'PRESENT',
-                            presetFontSizes: [26,24,22],
+                            presetFontSizes: [26, 24, 22],
                             width: width * 0.4,
-                            height:height*0.04,
+                            height: height * 0.04,
                             maxlines: 1,
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -102,10 +122,10 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                             ),
                           ),
                           TextContainer(
-                            text: '34',
-                            presetFontSizes: [36,34,32],
+                            text: presentCount.toString(),
+                            presetFontSizes: [36, 34, 32],
                             width: width * 0.3,
-                            height:height*0.05,
+                            height: height * 0.05,
                             maxlines: 1,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -116,18 +136,18 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                         ],
                       ),
                       Container(
-                            height:height*0.8,
-                            width:1,
-                            color:Colors.black,
+                        height: height * 0.8,
+                        width: 1,
+                        color: Colors.black,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           TextContainer(
                             text: 'ABESENT',
-                            presetFontSizes: [26,24,22],
+                            presetFontSizes: [26, 24, 22],
                             width: width * 0.39,
-                            height:height*0.04,
+                            height: height * 0.04,
                             maxlines: 1,
                             textAlign: TextAlign.end,
                             style: TextStyle(
@@ -135,12 +155,11 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          
                           TextContainer(
-                            text: '4',
-                            presetFontSizes: [36,34,32],
+                            text: absentCount.toString(),
+                            presetFontSizes: [36, 34, 32],
                             width: width * 0.39,
-                            height:height*0.05,
+                            height: height * 0.05,
                             maxlines: 1,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -156,7 +175,6 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                 SizedBox(
                   height: height * 0.02,
                 ),
-                
                 Container(
                   height: height * 0.5,
                   width: width,
@@ -171,19 +189,25 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                       alignment: WrapAlignment.spaceEvenly,
                       children: [
                         ...orderedAttendance
-                            .map((s) => StudentCard(student: s,onTap: (){
-                              setState(() {
-  
-                              });
-                            },
-                            absent:true,
-                            ))
+                            .map((s) => StudentCard(
+                                  student: s,
+                                  onTap: () {
+                                    for (int i=0;i<attendance!.length;i++){
+                                      if (attendance![i]==s)
+                                        setState(() {
+                                          attendance![i].present=!attendance![i].present;
+                                        });
+                                    }
+                                    for (int i=0;i<attendance!.length;i++)
+                                      print(attendance![i].present);
+                                  },
+                                  absent: true,
+                                ))
                             .toList()
                       ],
                     ),
                   ),
                 ),
-                
               ],
             )));
   }

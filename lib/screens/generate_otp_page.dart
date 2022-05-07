@@ -16,7 +16,7 @@ import '../models/StudentAttendance.dart';
 
 class GenerateOtpPage extends StatefulWidget {
   Course course;
-  List<StudentAttendance>? attendance;
+  late List<StudentAttendance> attendance;
   
   GenerateOtpPage({required this.course}){
     attendance=course.students!.map((s)=>StudentAttendance(student: s)).toList();
@@ -271,7 +271,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                         runSpacing: height*0.01,
                         alignment: WrapAlignment.spaceEvenly,
                         children: [
-                          ...widget.attendance!
+                          ...widget.attendance
                               .map((s) => StudentCard(student: s,onTap: (){setState(() {
                                 
                               });},
