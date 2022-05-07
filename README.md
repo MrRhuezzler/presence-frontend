@@ -16,9 +16,10 @@ Presence, is a mobile application built using Flutter that can be used for takin
 - Our application is completely reliable as it does have any advanced requirements. We have also implemented failsafes for unforeseen circumstances.
 
 ### User Interface
-| | | | |
-|--|--|--|--|
+<!-- | | | | | -->
+
 |<img src="/images/enterOTP.jpg" height="400px">|<img src="/images/facultyAttendance.jpg" height="400px">|<img src="/images/facultyManual.jpg" height="400px">|<img src="/images/facultyManual2.jpg" height="400px">|
+|--|--|--|--|
 |<img src="/images/genOTP.jpg" height="400px">|<img src="/images/initialResult.jpg" height="400px">|<img src="/images/myCourses.jpg" height="400px">|<img src="/images/myCourses2.jpg" height="400px">|
 |<img src="/images/studWait.jpg" height="400px">|<img src="/images/enterOTP.jpg" height="400px">|<img src="/images/warning.jpg" height="400px">|<img src="/images/noScreenshot.jpg" height="400px">|
 
