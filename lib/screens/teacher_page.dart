@@ -37,16 +37,16 @@ class _TeacherPageState extends State<TeacherPage> {
           rollNo: '20PT01'
         ),
         Student(
-          name:'Agilan',
-          rollNo: '20PT01'
+          name:'Arjuna',
+          rollNo: '20PT04'
         ),
         Student(
-          name:'Agilan',
-          rollNo: '20PT01'
+          name:'Rhubanraj',
+          rollNo: '20PT25'
         ),
         Student(
-          name:'Agilan',
-          rollNo: '20PT01'
+          name:'Sreyas',
+          rollNo: '20PT33'
         ),
 
       ]

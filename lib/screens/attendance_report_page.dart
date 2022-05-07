@@ -176,7 +176,7 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                   height: height * 0.02,
                 ),
                 Container(
-                  height: height * 0.5,
+                  height: height * 0.55,
                   width: width,
                   padding: EdgeInsets.symmetric(vertical: height * 0.02),
                   decoration: BoxDecoration(
