@@ -23,7 +23,7 @@ Presence, is a mobile application built using Flutter that can be used for takin
 |<img src="/images/studWait.jpg" height="400px">|<img src="/images/enterOTP.jpg" height="400px">|<img src="/images/warning.jpg" height="400px">|<img src="/images/noScreenshot.jpg" height="400px">|
 
 ### Ideas for the Future
-- After each number is entered for the OTP, the number pad will be randomized making it more difficult to enter the OTP. We believe this can reduce the probability of someone using two phones simultaneously for proxying. (Entering one OTP will take long enough that a student will not have time for entering two OTPs)
+- After each number is entered for the OTP, the location of the numbers in the number pad will be randomized making it more difficult to enter the OTP. We believe this can reduce the probability of someone using two phones simultaneously for proxying. (Entering one OTP will take long enough that a student will not have time for entering two OTPs)
 - Allow the students to apply for leave/OD (on duty) through the application
 - Provide warnings to students with low attendance
 - Provide data visualization of the attendance to the faculty for better understanding of the attendance trends
