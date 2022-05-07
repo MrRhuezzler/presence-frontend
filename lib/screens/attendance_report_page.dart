@@ -1,3 +1,4 @@
+import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/common_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -176,7 +177,7 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                   height: height * 0.02,
                 ),
                 Container(
-                  height: height * 0.55,
+                  height: height * 0.5,
                   width: width,
                   padding: EdgeInsets.symmetric(vertical: height * 0.02),
                   decoration: BoxDecoration(
@@ -198,8 +199,7 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                                           attendance![i].present=!attendance![i].present;
                                         });
                                     }
-                                    for (int i=0;i<attendance!.length;i++)
-                                      print(attendance![i].present);
+                                    
                                   },
                                   absent: true,
                                 ))
@@ -208,6 +208,10 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                     ),
                   ),
                 ),
+                SizedBox(height:height*0.02),
+                CommonButton(height: height*0.05, width: width*0.5, title: 'SUBMIT', onTap: (){},
+                
+                )
               ],
             )));
   }
