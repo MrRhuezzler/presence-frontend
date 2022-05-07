@@ -1,3 +1,4 @@
+import 'package:codekaine/screens/student/student_page.dart';
 import 'package:codekaine/screens/teacher/teacher_page.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         theme:ThemeData(
           // fontFamily: 'Roboto'
         ),
-        home: TeacherPage()
+        // home: TeacherPage()
+        home:StudentPage()
       );
   }
 }

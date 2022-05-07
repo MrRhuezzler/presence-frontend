@@ -1,6 +1,7 @@
 import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/text_container.dart';
 import 'package:codekaine/constants.dart';
+import 'package:codekaine/screens/student/enter_otp_page.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Course.dart';
@@ -8,7 +9,8 @@ import '../screens/teacher/generate_otp_page.dart';
 
 class CourseTile extends StatelessWidget {
   Course course;
-  CourseTile({required this.course});
+  bool isStudent;
+  CourseTile({required this.course,required this.isStudent});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +74,9 @@ class CourseTile extends StatelessWidget {
               top:height*0.12-height*0.02,
               left:(width*0.9-width*0.9)/2,
               child:CommonButton(
-                height: height*0.05, width: width*0.9, title: 'TAKE ATTENDANCE',
+                height: height*0.05, width: width*0.9, title: !isStudent?'TAKE ATTENDANCE':'GIVE ATTENDANCE',
                 onTap: (){
-                  Navigator.push((context),MaterialPageRoute(builder: (context)=>GenerateOtpPage(course:course)));
+                  Navigator.push((context),MaterialPageRoute(builder: (context)=>!isStudent?GenerateOtpPage(course:course):EnterOtpPage(course: course)));
                 },
               ),
       

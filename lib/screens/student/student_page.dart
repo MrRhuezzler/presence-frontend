@@ -7,66 +7,39 @@ import 'package:flutter/material.dart';
 import '../../models/Course.dart';
 import '../../models/Student.dart';
 
-class TeacherPage extends StatefulWidget {
+class StudentPage extends StatefulWidget {
   @override
-  State<TeacherPage> createState() => _TeacherPageState();
+  State<StudentPage> createState() => _StudentPageState();
 }
 
-class _TeacherPageState extends State<TeacherPage> {
+class _StudentPageState extends State<StudentPage> {
   List<Course> courses = [
     Course(
-      name: 'RDBMS',
+      name: 'Stochastic processes',
       code: '20XT41',
       description: 'MSC TCS-2',
-      students:[
-        for (int i=0;i<40;i++)
-        Student(
-          name:'RhubanrajPalani',
-          rollNo: '20PT25'
-        ),
-      ]
+    ),
+    Course(
+      name: 'Optimization techniques',
+      code: '20XT42',
+      description: 'MSC TCS-2',
       
     ),
     Course(
-      name: 'DATABASE DESIGN',
-      code: '19XT43',
-      description: 'MSC TCS-3',
-      students: [
-        Student(
-          name:'Agilan',
-          rollNo: '20PT01'
-        ),
-        Student(
-          name:'Arjuna',
-          rollNo: '20PT04'
-        ),
-        Student(
-          name:'Rhubanraj',
-          rollNo: '20PT25'
-        ),
-        Student(
-          name:'Sreyas',
-          rollNo: '20PT33'
-        ),
-
-      ]
+      name: 'Computer networks',
+      code: '20XT43',
+      description: 'MSC TCS-2',
       
     ),
     Course(
-      name: 'Big data & modern database design',
-      code: '20XTE8',
+      name: 'Operating systems',
+      code: '20XT44',
       description: 'MSC TCS-3',
       
     ),
     Course(
       name: 'DATABASE DESIGN',
-      code: '19XT43',
-      description: 'MSC TCS-3',
-      
-    ),
-    Course(
-      name: 'DATABASE DESIGN',
-      code: '19XT43',
+      code: '20XT45',
       description: 'MSC TCS-3',
       
     ),
@@ -123,7 +96,7 @@ class _TeacherPageState extends State<TeacherPage> {
             Expanded(
               child: ListView(
                 children: [
-                  ...courses.map((c) => CourseTile(course: c,isStudent: false,)).toList()
+                  ...courses.map((c) => CourseTile(course: c,isStudent:true)).toList()
                 ],
               ),
             ),
