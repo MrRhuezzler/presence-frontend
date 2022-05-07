@@ -1,16 +1,10 @@
-# codekaine
+# Presence
+Presence, is a mobile application built using Flutter that can be used for taking attendance easily and quickly in a classroom. Our application tracks the attendance of the students much quicker than other methods by allowing multiple students to show their ‘presence’ simultaneously with the help of an OTP model. Our application is relatively free of cost compared to other expensive hardware solutions. The features of Presence discourage proxying and promote a fair attendance system. The teachers are also given complete access to edit the attendance status at any point of time, making Presence a very flexible application.
 
-A new Flutter project.
+### Problems
+The usual method of manually entering attendance is error prone and slow at times
+We need a way for recording the attendance quickly and cheaply
+Hardware methods are expensive. A fingerprint or face recognition device will take too much time to record the attendance of every single student in the classroom
+Proxying should be avoided as much as possible
+The solution needs to be reliable.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
