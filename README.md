@@ -27,4 +27,5 @@ Presence, is a mobile application built using Flutter that can be used for takin
 <img src="/images/myCourses2.jpg" height="400px" align="left">
 <img src="/images/studWait.jpg" height="400px">
 
-
+### Presentation Link
+https://docs.google.com/presentation/d/1YMLFLWQAY50yhAHleE92bdTSfuB_uhfIyL9NzZ92fRw/edit?usp=sharing
