@@ -40,27 +40,29 @@ class CommonButton extends StatelessWidget {
                 stops: [0.3, 1],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
-        child: icon!=null?Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            
-            icon!,
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: height*0.2),
-              child: TextContainer(
-                text: title,
-                presetFontSizes: [20, 18, 16, 14, 12],
-                // textAlign: TextAlign.left,
-                width: width * 0.4,
-                height: height * 0.6,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color:Colors.black87
+        child: icon!=null?Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              
+              icon!,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: height*0.2),
+                child: TextContainer(
+                  text: title,
+                  presetFontSizes: [20, 18, 16, 14, 12],
+                  // textAlign: TextAlign.left,
+                  width: width * 0.6,
+                  height: height * 0.6,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color:Colors.black87
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ):TextContainer(
               text: title,
               presetFontSizes: [20, 18, 16, 14, 12],

@@ -23,8 +23,8 @@ class GenerateOtpPage extends StatefulWidget {
 
 class _GenerateOtpPageState extends State<GenerateOtpPage> {
   late CountdownTimerController controller;
+
   
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 10;
   bool otpGenerated = false;
   String otp = '000000';
   bool timerEnd = false;
@@ -44,6 +44,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
 
     void startTimer() {
       setState(() {
+        int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 10;
         controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
       });
     }
@@ -136,107 +137,121 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
               Column(
                 children: [
                   if (!timerEnd)
-                  Column(
-                    children: [
-                      SizedBox(height: height * 0.04),
-                      TextContainer(
-                        text: otp,
-                        presetFontSizes: [50, 48, 46],
-                        width: width * 0.8,
-                        maxlines: 1,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: primaryGreen,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 10,
-                        ),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      CountdownTimer(
-                        controller: controller,
-                        onEnd: onEnd,
-                        endTime: endTime,
-                        widgetBuilder: (_, CurrentRemainingTime? time) {
-                          if (time != null)
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.alarm,
-                                  color: time.sec! > 10
-                                      ? primaryGreen
-                                      : Colors.redAccent,
-                                  size: 40,
-                                ),
-                                SizedBox(width: width * 0.05),
-                                TextContainer(
-                                  text:
-                                      '00 : ${time.sec.toString().padLeft(2, '0')}',
-                                  presetFontSizes: [40, 38, 36],
-                                  style: TextStyle(
-                                    color: time.sec! > 10
-                                        ? Colors.white
-                                        : Colors.redAccent,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: 1.5,
-                                  ),
-                                ),
-                              ],
-                            );
-                          else
-                            return TextContainer(
-                              text: 'Time up!',
-                              presetFontSizes: [40, 38, 36],
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.5,
-                              ),
-                            );
-                        },
-                      ),
-                      SizedBox(height: height * 0.02),
-                    ],
-                  ),
-                  if (timerEnd)
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: height*0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
                       children: [
-                        InkWell(
-                          onTap:(){
-
-                          },
-                          child:Container(
-                            
-                            decoration: BoxDecoration(
-                              color:Colors.redAccent,
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            height:height*0.05,
-                            width:width*0.2,
-                            child:Icon(
-                              Icons.redo
-                            ),
+                        SizedBox(height: height * 0.04),
+                        TextContainer(
+                          text: otp,
+                          presetFontSizes: [50, 48, 46],
+                          width: width * 0.8,
+                          maxlines: 1,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: primaryGreen,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 10,
                           ),
                         ),
-                        CommonButton(height: height*0.05, width: width*0.6, title: 'REPORT', onTap: (){
-                          print(width);
+                        SizedBox(height: height * 0.02),
+                        CountdownTimer(
+                          controller: controller,
+                          onEnd: onEnd,
+                          widgetBuilder: (_, CurrentRemainingTime? time) {
+                            if (time != null)
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.alarm,
+                                    color: time.sec! > 10
+                                        ? primaryGreen
+                                        : Colors.redAccent,
+                                    size: 40,
+                                  ),
+                                  SizedBox(width: width * 0.05),
+                                  TextContainer(
+                                    text:
+                                        '00 : ${time.sec.toString().padLeft(2, '0')}',
+                                    presetFontSizes: [40, 38, 36],
+                                    style: TextStyle(
+                                      color: time.sec! > 10
+                                          ? Colors.white
+                                          : Colors.redAccent,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 1.5,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            else
+                              return TextContainer(
+                                text: 'Time up!',
+                                presetFontSizes: [40, 38, 36],
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 1.5,
+                                ),
+                              );
                           },
-                          icon:Icon(
-                            Icons.bar_chart,
-                            color:primaryBlack,
-                            size:height*0.03,
-                          )
                         ),
+                        SizedBox(height: height * 0.02),
                       ],
                     ),
-                  ),
-
+                  if (timerEnd)
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                otpGenerated = false;
+                                otp = '000000';
+                                timerEnd = false;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: height * 0.05,
+                              width: width * 0.4,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.redo,
+                                  ),
+                                  SizedBox(width: width * 0.01),
+                                  TextContainer(
+                                      text: 'RESEND',
+                                      presetFontSizes: [20, 18, 16],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
+                          CommonButton(
+                              height: height * 0.05,
+                              width: width * 0.45,
+                              title: 'REPORT',
+                              onTap: () {},
+                              icon: Icon(
+                                Icons.bar_chart,
+                                color: primaryBlack,
+                                size: height * 0.03,
+                              )),
+                        ],
+                      ),
+                    ),
                   Container(
                     height: height * 0.5,
-                    width:width,
+                    width: width,
                     padding: EdgeInsets.symmetric(vertical: height * 0.02),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -259,5 +274,10 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
