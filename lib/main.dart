@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Roboto'
         ),
         // home: TeacherPage()
-        // home:StudentPage()
-        home:LoginPage(),
+        home:StudentPage()
+        // home:LoginPage(),
       );
   }
 }
