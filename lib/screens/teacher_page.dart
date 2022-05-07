@@ -21,7 +21,7 @@ class _TeacherPageState extends State<TeacherPage> {
       students:[
         for (int i=0;i<40;i++)
         Student(
-          name:'Rhubanraj',
+          name:'RhubanrajPalani',
           rollNo: '20PT25'
         ),
       ]

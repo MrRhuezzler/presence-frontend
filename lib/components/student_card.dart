@@ -12,8 +12,8 @@ class StudentCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
-      height:height*0.08,
-      width:width*0.25,
+      height:height*0.1,
+      width:width*0.3,
       child:Column(
         children: [
           Icon(
@@ -21,10 +21,23 @@ class StudentCard extends StatelessWidget {
             size:height*0.06,
             color:Colors.white,
           ),
+          
           TextContainer(
             text:student.name.toUpperCase(),
             presetFontSizes: [12,10,8],
-            width:width*0.25,
+            width:width*0.3,
+            height:height*0.02,
+            textAlign: TextAlign.center,
+            maxlines: 1,
+            style: TextStyle(
+              color:Colors.grey[300],
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          TextContainer(
+            text:student.rollNo.toUpperCase(),
+            presetFontSizes: [12,10,8],
+            width:width*0.3,
             height:height*0.02,
             textAlign: TextAlign.center,
             maxlines: 1,

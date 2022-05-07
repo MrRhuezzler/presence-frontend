@@ -231,7 +231,8 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700,
-                                      )),
+                                      )
+                                    ),
                                 ],
                               ),
                             ),
@@ -240,7 +241,10 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                               height: height * 0.05,
                               width: width * 0.45,
                               title: 'REPORT',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push((context),MaterialPageRoute(builder: (context)=>AttendanceReportPage(course: widget.course)));
+                              },
+
                               icon: Icon(
                                 Icons.bar_chart,
                                 color: primaryBlack,
@@ -259,6 +263,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                     ),
                     child: SingleChildScrollView(
                       child: Wrap(
+                        runSpacing: height*0.01,
                         alignment: WrapAlignment.spaceEvenly,
                         children: [
                           ...widget.course.students!
