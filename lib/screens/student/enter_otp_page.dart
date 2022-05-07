@@ -1,6 +1,7 @@
 import 'package:codekaine/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../components/common_button.dart';
 import '../../components/common_layout.dart';
@@ -114,7 +115,28 @@ class _EnterOtpPageState extends State<EnterOtpPage> {
                 ],
               ),
               if (!otpGenerated) 
-              Container(),
+              Column(
+                children: [
+                  
+                  SizedBox(height: height * 0.1),
+                  SpinKitSpinningLines(
+                    color: primaryGreen,
+                    size:height*0.3,
+                    ),
+                    SizedBox(height: height * 0.1),
+                  TextContainer(
+                    text: "WAITING",
+                    presetFontSizes: [30, 28, 26, 24, 22],
+                    width: width * 0.7,
+                    maxlines: 1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: primaryGreen,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              )
               
 
             ],
