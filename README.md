@@ -8,3 +8,17 @@ Hardware methods are expensive. A fingerprint or face recognition device will ta
 Proxying should be avoided as much as possible
 The solution needs to be reliable.
 
+
+### User Interface
+<img src="/images/enterOTP.jpg" height="400px" align="left">
+<img src="/images/facultyAttendance.jpg" height="400px" align="left">
+<img src="/images/facultyManual.jpg" height="400px" align="left">
+<img src="/images/facultyManual2.jpg" height="400px" align="left">
+---
+<img src="/images/genOTP.jpg" height="400px" align="left">
+<img src="/images/initialResult.jpg" height="400px" align="left">
+<img src="/images/myCourses.jpg" height="400px" align="left">
+<img src="/images/myCourses2.jpg" height="400px" align="left">
+<img src="/images/studWait.jpg" height="400px">
+
+
