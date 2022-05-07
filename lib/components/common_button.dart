@@ -1,5 +1,5 @@
 import 'package:codekaine/components/text_container.dart';
-import 'package:codekaine/screens/generate_otp_page.dart';
+import 'package:codekaine/screens/teacher/generate_otp_page.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';

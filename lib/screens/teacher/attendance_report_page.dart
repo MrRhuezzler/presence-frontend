@@ -2,11 +2,11 @@ import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/common_layout.dart';
 import 'package:flutter/material.dart';
 
-import '../components/student_card.dart';
-import '../components/text_container.dart';
-import '../constants.dart';
-import '../models/Course.dart';
-import '../models/StudentAttendance.dart';
+import '../../components/student_card.dart';
+import '../../components/text_container.dart';
+import '../../constants.dart';
+import '../../models/Course.dart';
+import '../../models/StudentAttendance.dart';
 
 class AttendanceReportPage extends StatefulWidget {
   Course course;

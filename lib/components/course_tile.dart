@@ -4,7 +4,7 @@ import 'package:codekaine/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Course.dart';
-import '../screens/generate_otp_page.dart';
+import '../screens/teacher/generate_otp_page.dart';
 
 class CourseTile extends StatelessWidget {
   Course course;

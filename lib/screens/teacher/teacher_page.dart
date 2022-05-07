@@ -4,8 +4,8 @@ import 'package:codekaine/components/text_container.dart';
 import 'package:codekaine/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../models/Course.dart';
-import '../models/Student.dart';
+import '../../models/Course.dart';
+import '../../models/Student.dart';
 
 class TeacherPage extends StatefulWidget {
   @override

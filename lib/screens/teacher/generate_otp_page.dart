@@ -6,13 +6,13 @@ import 'package:codekaine/components/common_layout.dart';
 import 'package:codekaine/components/generate_otp_button.dart';
 import 'package:codekaine/components/text_container.dart';
 import 'package:codekaine/constants.dart';
-import 'package:codekaine/screens/attendance_report_page.dart';
+import 'package:codekaine/screens/teacher/attendance_report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 
-import '../components/student_card.dart';
-import '../models/Course.dart';
-import '../models/StudentAttendance.dart';
+import '../../components/student_card.dart';
+import '../../models/Course.dart';
+import '../../models/StudentAttendance.dart';
 
 class GenerateOtpPage extends StatefulWidget {
   Course course;
