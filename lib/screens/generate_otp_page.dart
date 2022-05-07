@@ -12,10 +12,15 @@ import 'package:flutter_countdown_timer/index.dart';
 
 import '../components/student_card.dart';
 import '../models/Course.dart';
+import '../models/StudentAttendance.dart';
 
 class GenerateOtpPage extends StatefulWidget {
   Course course;
-  GenerateOtpPage({required this.course});
+  List<StudentAttendance>? attendance;
+  
+  GenerateOtpPage({required this.course}){
+    attendance=course.students!.map((s)=>StudentAttendance(student: s)).toList();
+  }
 
   @override
   State<GenerateOtpPage> createState() => _GenerateOtpPageState();
@@ -242,7 +247,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                               width: width * 0.45,
                               title: 'REPORT',
                               onTap: () {
-                                Navigator.push((context),MaterialPageRoute(builder: (context)=>AttendanceReportPage(course: widget.course)));
+                                Navigator.push((context),MaterialPageRoute(builder: (context)=>AttendanceReportPage(course: widget.course,attendance:widget.attendance)));
                               },
 
                               icon: Icon(
@@ -266,8 +271,12 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                         runSpacing: height*0.01,
                         alignment: WrapAlignment.spaceEvenly,
                         children: [
-                          ...widget.course.students!
-                              .map((s) => StudentCard(student: s))
+                          ...widget.attendance!
+                              .map((s) => StudentCard(student: s,onTap: (){setState(() {
+                                
+                              });},
+                              absent: false,
+                              ))
                               .toList()
                         ],
                       ),

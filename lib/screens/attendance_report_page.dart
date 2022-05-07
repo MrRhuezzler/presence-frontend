@@ -5,15 +5,30 @@ import '../components/student_card.dart';
 import '../components/text_container.dart';
 import '../constants.dart';
 import '../models/Course.dart';
+import '../models/StudentAttendance.dart';
 
-class AttendanceReportPage extends StatelessWidget {
+class AttendanceReportPage extends StatefulWidget {
   Course course;
-  AttendanceReportPage({required this.course});
+  List<StudentAttendance>? attendance;
+  AttendanceReportPage({required this.course,required this.attendance});
+
+  @override
+  State<AttendanceReportPage> createState() => _AttendanceReportPageState();
+}
+
+class _AttendanceReportPageState extends State<AttendanceReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    List <StudentAttendance> orderedAttendance=[...widget.attendance!];
+    orderedAttendance.sort((a,b){
+      if (b.present)
+        return -1;
+      return 1;
+    });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return CommonLayout(
         child: Container(
             padding: EdgeInsets.symmetric(
@@ -21,7 +36,7 @@ class AttendanceReportPage extends StatelessWidget {
             child: Column(
               children: [
                 TextContainer(
-                  text: course.code.toUpperCase(),
+                  text: widget.course.code.toUpperCase(),
                   presetFontSizes: [30, 28, 26, 24, 22],
                   width: width * 0.9,
                   maxlines: 1,
@@ -32,7 +47,7 @@ class AttendanceReportPage extends StatelessWidget {
                   ),
                 ),
                 TextContainer(
-                  text: course.name.toUpperCase(),
+                  text: widget.course.name.toUpperCase(),
                   presetFontSizes: [24, 22, 20, 18, 16],
                   width: width * 0.8,
                   maxlines: 1,
@@ -43,7 +58,7 @@ class AttendanceReportPage extends StatelessWidget {
                   ),
                 ),
                 TextContainer(
-                  text: course.description.toUpperCase(),
+                  text: widget.course.description.toUpperCase(),
                   presetFontSizes: [20, 18, 16, 14],
                   width: width * 0.8,
                   maxlines: 1,
@@ -155,8 +170,14 @@ class AttendanceReportPage extends StatelessWidget {
                       runSpacing: height * 0.01,
                       alignment: WrapAlignment.spaceEvenly,
                       children: [
-                        ...course.students!
-                            .map((s) => StudentCard(student: s))
+                        ...orderedAttendance
+                            .map((s) => StudentCard(student: s,onTap: (){
+                              setState(() {
+  
+                              });
+                            },
+                            absent:true,
+                            ))
                             .toList()
                       ],
                     ),
