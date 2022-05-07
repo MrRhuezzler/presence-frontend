@@ -1,6 +1,7 @@
 import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/common_layout.dart';
 import 'package:codekaine/components/text_container.dart';
+import 'package:codekaine/screens/teacher/teacher_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -112,7 +113,9 @@ class _LoginPageState extends State<LoginPage> {
                 
               ),
               SizedBox(height: height * 0.03),
-              CommonButton(height: height*0.05, width: width*0.5, title: 'LOGIN', onTap: (){})
+              CommonButton(height: height*0.05, width: width*0.5, title: 'LOGIN', onTap: (){
+                Navigator.push((context),MaterialPageRoute(builder: (context)=>TeacherPage()));
+              })
             ],
           ),
         ),
