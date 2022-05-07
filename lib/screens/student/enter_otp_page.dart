@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import '../../components/common_button.dart';
 import '../../components/common_layout.dart';
@@ -25,6 +26,7 @@ class _EnterOtpPageState extends State<EnterOtpPage> with WidgetsBindingObserver
   @override
   void initState() {
     super.initState();
+    disableCapture();
     WidgetsBinding.instance!.addObserver(this);
     
   }
@@ -44,6 +46,7 @@ class _EnterOtpPageState extends State<EnterOtpPage> with WidgetsBindingObserver
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
+    controller.dispose();
     super.dispose();
   }
   bool otpGenerated = true;
@@ -270,4 +273,9 @@ class _EnterOtpPageState extends State<EnterOtpPage> with WidgetsBindingObserver
       ),
     );
   }
+  Future<void> disableCapture() async {
+    //disable screenshots and record screen in current screen
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+
 }

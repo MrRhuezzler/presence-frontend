@@ -1,6 +1,7 @@
 import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/common_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import '../../components/student_card.dart';
 import '../../components/text_container.dart';
@@ -26,8 +27,6 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
   @override
   initState() {
     
-    
-    
     super.initState();
   }
 
@@ -48,6 +47,7 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
         .map((element) => element.present == true ? 1 : 0)
         .reduce((value, element) => value + element);
     absentCount = attendance!.length - presentCount;
+
     
     return CommonLayout(
         child: Container(
@@ -213,6 +213,10 @@ class _AttendanceReportPageState extends State<AttendanceReportPage> {
                 
                 )
               ],
-            )));
+            ))
+      );
+    
+    
   }
+  
 }
