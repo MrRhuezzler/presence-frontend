@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:codekaine/components/common_button.dart';
 import 'package:codekaine/components/common_layout.dart';
 import 'package:codekaine/components/text_container.dart';
+import 'package:codekaine/screens/student/student_page.dart';
 import 'package:codekaine/screens/teacher/teacher_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
@@ -17,18 +22,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return CommonLayout(
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
 
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
         },
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -46,76 +52,111 @@ class _LoginPageState extends State<LoginPage> {
                     fontFamily: 'Montserrat'),
               ),
               SizedBox(height: height * 0.05),
-              SpinKitSpinningLines(color: primaryGreen, size: height*0.2),
-              SizedBox(height:height*0.05),
+              SpinKitSpinningLines(color: primaryGreen, size: height * 0.2),
+              SizedBox(height: height * 0.05),
               TextField(
                 cursorColor: Colors.white,
-                  controller: emailController,
-                  keyboardAppearance: Brightness.dark,
-
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding:EdgeInsets.symmetric(horizontal:10,vertical:5),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                    fillColor: primaryBlack,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: primaryGreen, width: 1),
-                    ),
-                    hintText: 'Email',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,),
-                    // suffixIcon: Icon(Icons.search, color: Color(0xFF1D1D1D)),
-                  ),
-                
-              ),
-              SizedBox(height:height*0.02),
-              TextField(
-                cursorColor: Colors.white,
+                controller: emailController,
                 keyboardAppearance: Brightness.dark,
-                  controller: passwordController,
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding:EdgeInsets.symmetric(horizontal:10,vertical:5),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
                     ),
-                    fillColor: primaryBlack,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: primaryGreen, width: 1),
-                    ),
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,),
-                    // suffixIcon: Icon(Icons.search, color: Color(0xFF1D1D1D)),
                   ),
-                
+                  fillColor: primaryBlack,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: primaryGreen, width: 1),
+                  ),
+                  hintText: 'Email',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  // suffixIcon: Icon(Icons.search, color: Color(0xFF1D1D1D)),
+                ),
+              ),
+              SizedBox(height: height * 0.02),
+              TextField(
+                cursorColor: Colors.white,
+                obscureText: true,
+                keyboardAppearance: Brightness.dark,
+                controller: passwordController,
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  fillColor: primaryBlack,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: primaryGreen, width: 1),
+                  ),
+                  hintText: 'Password',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  // suffixIcon: Icon(Icons.search, color: Color(0xFF1D1D1D)),
+                ),
               ),
               SizedBox(height: height * 0.03),
-              CommonButton(height: height*0.05, width: width*0.5, title: 'LOGIN', onTap: (){
-                Navigator.push((context),MaterialPageRoute(builder: (context)=>TeacherPage()));
-              })
+              CommonButton(
+                  height: height * 0.05,
+                  width: width * 0.5,
+                  title: 'LOGIN',
+                  onTap: () async {
+                    // print(emailController.text);
+                    // print(passwordController.text);
+                    var response = await http.post(
+                        Uri.parse('$baseUrl/api/auth/login'),
+                        // headers: headers,
+                        body: {
+                          'email': emailController.text,
+                          'password': passwordController.text
+                        });
+                    // print("RESPONSE : ");
+                    if (response.statusCode < 400) {
+                      Map responseJson = jsonDecode(response.body);
+                      // print(responseJson);
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setString('email', responseJson['email']);
+                      prefs.setString('name', responseJson['name']);
+                      prefs.setBool('isFaculty', responseJson['isFaculty']);
+                      if (responseJson['isFaculty']) {
+                        Navigator.push(
+                            (context),
+                            MaterialPageRoute(
+                                builder: (context) => TeacherPage()));
+                      } else {
+                        Navigator.push(
+                            (context),
+                            MaterialPageRoute(
+                                builder: (context) => StudentPage()));
+                      }
+                    }
+                    // print(responseJson['errors']);
+
+                    // Navigator.push((context), MaterialPageRoute(builder: (context) => TeacherPage()));
+                  })
             ],
           ),
         ),

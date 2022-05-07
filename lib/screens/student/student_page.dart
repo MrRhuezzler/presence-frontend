@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:codekaine/components/common_layout.dart';
 import 'package:codekaine/components/course_tile.dart';
 import 'package:codekaine/components/text_container.dart';
 import 'package:codekaine/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/Course.dart';
-import '../../models/Student.dart';
 
 class StudentPage extends StatefulWidget {
   @override
@@ -13,7 +16,8 @@ class StudentPage extends StatefulWidget {
 }
 
 class _StudentPageState extends State<StudentPage> {
-  List<Course> courses = [
+  List<Course> courses = [];
+  /*List<Course> courses = [
     Course(
       name: 'Stochastic processes',
       code: '20XT41',
@@ -23,31 +27,53 @@ class _StudentPageState extends State<StudentPage> {
       name: 'Optimization techniques',
       code: '20XT42',
       description: 'MSC TCS-2',
-      
     ),
     Course(
       name: 'Computer networks',
       code: '20XT43',
       description: 'MSC TCS-2',
-      
     ),
     Course(
       name: 'Operating systems',
       code: '20XT44',
       description: 'MSC TCS-3',
-      
     ),
     Course(
       name: 'DATABASE DESIGN',
       code: '20XT45',
       description: 'MSC TCS-3',
-      
     ),
-  ];
+  ];*/
+
+  @override
+  void initState() {
+    super.initState();
+    initPrefs();
+  }
+
+  void initPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+    var response = await http.get(Uri.parse('$baseUrl/api/periods'));
+    print(response.body);
+    var periodJson = jsonDecode(response.body);
+    List<Course> tempCourse = [];
+    for (Map m in periodJson) {
+      tempCourse = [
+        ...tempCourse,
+        Course(name: m['name'], code: m['code'], description: m['description'])
+      ];
+    }
+    setState(() {
+      courses = tempCourse;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    // print(email);
     return CommonLayout(
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -71,12 +97,11 @@ class _StudentPageState extends State<StudentPage> {
                   ),
                 ),
                 InkWell(
-                  onTap:(){},
-                  child:Icon(
-                    Icons.calendar_month,
-                    color:primaryGreen,
-                  )
-                ),
+                    onTap: () {},
+                    child: Icon(
+                      Icons.calendar_month,
+                      color: primaryGreen,
+                    )),
               ],
             ),
             SizedBox(height: height * 0.03),
@@ -96,7 +121,9 @@ class _StudentPageState extends State<StudentPage> {
             Expanded(
               child: ListView(
                 children: [
-                  ...courses.map((c) => CourseTile(course: c,isStudent:true)).toList()
+                  ...courses
+                      .map((c) => CourseTile(course: c, isStudent: true))
+                      .toList()
                 ],
               ),
             ),

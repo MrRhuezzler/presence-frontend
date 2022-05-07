@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:codekaine/components/common_button.dart';
@@ -6,34 +7,66 @@ import 'package:codekaine/components/common_layout.dart';
 import 'package:codekaine/components/generate_otp_button.dart';
 import 'package:codekaine/components/text_container.dart';
 import 'package:codekaine/constants.dart';
+import 'package:codekaine/models/Student.dart';
+import 'package:codekaine/models/StudentAttendance.dart';
 import 'package:codekaine/screens/teacher/attendance_report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
+import 'package:http/http.dart' as http;
 
 import '../../components/student_card.dart';
 import '../../models/Course.dart';
-import '../../models/StudentAttendance.dart';
 
 class GenerateOtpPage extends StatefulWidget {
   Course course;
-  late List<StudentAttendance> attendance;
-  
-  GenerateOtpPage({required this.course}){
-    attendance=course.students!.map((s)=>StudentAttendance(student: s)).toList();
-  }
+
+  GenerateOtpPage({required this.course}) {}
 
   @override
-  State<GenerateOtpPage> createState() => _GenerateOtpPageState();
+  State<GenerateOtpPage> createState() => _GenerateOtpPageState(course: course);
 }
 
 class _GenerateOtpPageState extends State<GenerateOtpPage> {
+  Course course;
+  _GenerateOtpPageState({required this.course});
   late CountdownTimerController controller;
-
-  
+  List<StudentAttendance> attendance = [];
   bool otpGenerated = false;
-  String otp = '000000';
+  String otp = '';
   bool timerEnd = false;
   var rng = new Random();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void getStudents() async {
+    var response = await http.post(
+        Uri.parse(
+          '$baseUrl/api/room',
+        ),
+        body: {
+          'period_code': course.code,
+        });
+    print(response.body);
+    var periodJson = jsonDecode(response.body);
+    for (Map m in periodJson['students']) {
+      attendance = [
+        ...attendance,
+        StudentAttendance(
+          student: Student(
+              name: m['name'],
+              rollNo: m['email'].substring(0, m['email'].indexOf('@'))),
+        )
+      ];
+    }
+    setState(() {
+      attendance = attendance;
+      otp = periodJson['otp'];
+      otpGenerated = true;
+    });
+    // List<StudentAttendance> attendance=[];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,11 +160,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                     ),
                     onTap: () {
                       setState(() {
-                        print('clicked');
-                        otpGenerated = true;
-                        otp = (rng.nextInt(900000) + 100000).toString();
-
-                        print(otp);
+                        getStudents();
                       });
                       startTimer();
                     },
@@ -236,8 +265,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700,
-                                      )
-                                    ),
+                                      )),
                                 ],
                               ),
                             ),
@@ -247,9 +275,14 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                               width: width * 0.45,
                               title: 'REPORT',
                               onTap: () {
-                                Navigator.push((context),MaterialPageRoute(builder: (context)=>AttendanceReportPage(course: widget.course,attendance:widget.attendance)));
+                                Navigator.push(
+                                    (context),
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AttendanceReportPage(
+                                                course: widget.course,
+                                                attendance: attendance)));
                               },
-
                               icon: Icon(
                                 Icons.bar_chart,
                                 color: primaryBlack,
@@ -268,15 +301,17 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
                     ),
                     child: SingleChildScrollView(
                       child: Wrap(
-                        runSpacing: height*0.01,
+                        runSpacing: height * 0.01,
                         alignment: WrapAlignment.spaceEvenly,
                         children: [
-                          ...widget.attendance
-                              .map((s) => StudentCard(student: s,onTap: (){setState(() {
-                                
-                              });},
-                              absent: false,
-                              ))
+                          ...attendance
+                              .map((s) => StudentCard(
+                                    student: s,
+                                    onTap: () {
+                                      setState(() {});
+                                    },
+                                    absent: false,
+                                  ))
                               .toList()
                         ],
                       ),
@@ -289,6 +324,7 @@ class _GenerateOtpPageState extends State<GenerateOtpPage> {
       ),
     );
   }
+
   @override
   void dispose() {
     controller.dispose();
